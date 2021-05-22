@@ -20,6 +20,7 @@ class Category(models.Model):
     name = models.CharField(max_length=254, default='Empty', unique=True)
 
 class Post(models.Model):
+
     news = 'NW'
     article = 'AR'
 
@@ -58,6 +59,9 @@ class Post(models.Model):
             number_comment += 1
             print('*' * 20)
 
+    def __str__(self):
+        return self.preview()
+
 
 
 class PostCategory(models.Model):
@@ -65,6 +69,7 @@ class PostCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 class Comment(models.Model):
+
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(default='Empty')
