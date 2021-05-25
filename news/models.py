@@ -6,6 +6,9 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
+    def __str__(self):
+        return str(self.user)
+
     def update_rating(self):
         rating_post_autor = sum(p.rating * 3 for p in Post.objects.filter(autor=self.id))
         print('Post',rating_post_autor)
@@ -16,8 +19,19 @@ class Author(models.Model):
         self.rating = rating_post_autor + rating_comment_autor + rating_post_comment
         self.save()
 
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
+
 class Category(models.Model):
     name = models.CharField(max_length=254, default='Empty', unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
 
 class Post(models.Model):
 
@@ -62,6 +76,12 @@ class Post(models.Model):
     def __str__(self):
         return self.preview()
 
+    class Meta:
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
 
 
 class PostCategory(models.Model):

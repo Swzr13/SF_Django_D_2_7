@@ -1,0 +1,28 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %} Удаление новостей {% endblock title %}
+
+{% block content %}
+<h3>Вы уверены что хотите удалить новость?</h3>
+
+<table class='table' border="1" width="600">
+    <tr>
+        <td><span class='font-weight-bold'>Автор</span></td>
+        <td align=center><span class='font-weight-bold text-nowrap'>Дата добавления</span></td>
+        <td><span class='font-weight-bold'>Название</span></td>
+    </tr>
+    <tr>
+        <td>{{ post.autor.user }}</td>
+        <td class='text-center'>{{ post.date_add|date:'d.m.y h:m' }}</td>
+        <td>{{ post.title|censor }}</td>
+    </tr>
+</table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Удалить">
+</form>
+
+{% endblock content %}

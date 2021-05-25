@@ -1,6 +1,13 @@
 {% extends 'flatpages/default.html' %}
+{% load custom_filters %}
 
+{% block title %}
+<h1>Полная новость</h1>
+{% endblock title %}
 {% block content %}
-<h2>Статья</h2>
-{{ post }}
+<h2>Заголовок: {{ post.title|censor }}</h2>
+<p><strong><em>Автор - {{ post.autor.user }}</em></strong></p>
+<p><em>Дата добавления - {{ post.date_add|date:'d-M-Y h:m' }}</em></p>
+<br>
+{{ post.text }}
 {% endblock content %}
